@@ -12,4 +12,4 @@ Boot. Serwis do autoryzacji powinien być singletonem.
 :white_check_mark: 3.5 Należy stworzyć klasę do autoryzacji (mock) jako Singleton w formie eager \
 :white_check_mark: 4.0 Należy obsłużyć dane autoryzacji przekazywane przez użytkownika \
 :white_check_mark: 4.5 Należy wstrzyknąć singleton do głównej klasy via @Autowired lub kontruktor (constructor injection) \
-:x: 5.0 Obok wersji Eager do wyboru powinna być wersja Singletona w wersji lazy
+:white_check_mark: 5.0 Obok wersji Eager do wyboru powinna być wersja Singletona w wersji lazy

@@ -1,6 +1,6 @@
 package com.example.authservice
 
-class AuthService private constructor() {
+open class AuthService protected constructor() {
     init {
         println("AuthService init (eager)")
     }
@@ -10,7 +10,7 @@ class AuthService private constructor() {
         fun getInstance(): AuthService = INSTANCE
     }
 
-    fun authorize(username: String, password: String): Boolean {
+    open fun authorize(username: String, password: String): Boolean {
         return username == "admin" && password == "password"
     }
 }
