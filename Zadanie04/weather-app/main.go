@@ -67,6 +67,11 @@ func GetWeather(c echo.Context) error {
 		Windspeed: windspeed,
 		Isday: is_day,
 	}
+	result := DB.Create(&weather)
+    if result.Error != nil {
+        return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to save data"})
+    }
+
 	return c.JSON(http.StatusOK, weather)
 }
 
