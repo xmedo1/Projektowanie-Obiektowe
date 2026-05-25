@@ -13,9 +13,8 @@ public func configure(_ app: Application) async throws {
     
     app.views.use(.leaf)
 
+    app.migrations.add(CreateCategory())
     app.migrations.add(CreateProduct())
-
-    app.views.use(.leaf)
 
     // register routes
     try routes(app)

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <title>Kategorie</title>
+</head>
+<body style="font-family: sans-serif; padding: 20px;">
+    <h1>Kategorie</h1>
+
+    <table border="1" cellpadding="10" style="border-collapse: collapse; margin-bottom: 20px;">
+        <tr>
+            <th>Nazwa kategorii</th>
+            <th>Produkty w kategorii</th> <th>Akcje</th>
+        </tr>
+        #for(category in categories):
+        <tr>
+            <td>#(category.name)</td>
+            
+            <td>
+                <ul>
+                #for(product in category.products):
+                    <li>#(product.name) (#(product.price) zł)</li>
+                #endfor
+                </ul>
+            </td>
+            
+            <td>
+                <a href="/web/categories/#(category.id)/edit">Edytuj</a>
+
+                <form method="POST" action="/web/categories/#(category.id)/delete" style="display:inline;">
+                    <button type="submit" style="color: red;">Usuń</button>
+                </form>
+            </td>
+        </tr>
+        #endfor
+    </table>
+
+    <h2>Dodaj kategorię</h2>
+    <form method="POST" action="/web/categories">
+        <input type="text" name="name" placeholder="Nazwa kategorii" required>
+        <button type="submit">Dodaj kategorię</button>
+    </form>
+    <br>
+    <a href="/web/products">Przejdź do produktów</a>
+</body>
+</html>

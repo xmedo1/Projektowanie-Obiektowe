@@ -12,12 +12,19 @@ struct ProductWebController: RouteCollection {
     }
 
     func index(req: Request) async throws -> View {
-        let products = try await Product.query(on: req.db).all()
-        return try await req.view.render("index", ["products": products])
+        let products = try await Product.query(on: req.db).with(\.$category).all()
+        let categories = try await Category.query(on: req.db).all()
+        
+        struct Context: Encodable { let products: [Product]; let categories: [Category] }
+        return try await req.view.render("index", Context(products: products, categories: categories))
     }
 
     func create(req: Request) async throws -> Response {
-        let product = try req.content.decode(Product.self)
+        let name = try req.content.get(String.self, at: "name")
+        let price = try req.content.get(Double.self, at: "price")
+        let categoryID = try req.content.get(UUID.self, at: "categoryID")
+        
+        let product = Product(name: name, price: price, categoryID: categoryID)
         try await product.save(on: req.db)
         return req.redirect(to: "/web/products")
     }
@@ -34,16 +41,26 @@ struct ProductWebController: RouteCollection {
         guard let product = try await Product.find(req.parameters.get("productID"), on: req.db) else {
             throw Abort(.notFound)
         }
-        return try await req.view.render("edit", ["product": product])
+        let categories = try await Category.query(on: req.db).all()
+        
+        struct EditContext: Encodable { 
+            let product: Product
+            let categories: [Category]
+            let currentCat: UUID 
+        }
+        
+        return try await req.view.render("edit", EditContext(product: product, categories: categories, currentCat: product.$category.id))
     }
 
     func update(req: Request) async throws -> Response {
         guard let product = try await Product.find(req.parameters.get("productID"), on: req.db) else {
             throw Abort(.notFound)
         }
-        let updatedData = try req.content.decode(Product.self)
-        product.name = updatedData.name
-        product.price = updatedData.price
+        
+        product.name = try req.content.get(String.self, at: "name")
+        product.price = try req.content.get(Double.self, at: "price")
+        product.$category.id = try req.content.get(UUID.self, at: "categoryID")
+        
         try await product.update(on: req.db)
         
         return req.redirect(to: "/web/products")
