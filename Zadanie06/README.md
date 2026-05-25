@@ -3,7 +3,7 @@
 Należy sprawdzić kod projektów JS 3.0, 3.5, 4.0,  kotlin, go, js -4.5, 5.0.
 
 :white_check_mark: 3.0 Należy skonfigurować husky + lint-staged uruchamianie lintowania przed commitem [[commit](https://github.com/xmedo1/Projektowanie-Obiektowe/commit/68c16ca15391ed971376038de9b5a7f8e27a6c4b)] \
-:x: 3.5 Należy wyeliminować wszystkie bugi w kodzie w Sonarze (kod aplikacji klienckiej) \
+:white_check_mark: 3.5 Należy wyeliminować wszystkie bugi w kodzie w Sonarze (kod aplikacji klienckiej) (zrobione w [[repo](https://github.com/xmedo1/ebiznes07-frontend)] zadania 7 E-Biznes) \
 :x: 4.0 Przeskanować oraz naprawić dowolny projekt open source narzędziem CodeQL https://codeql.github.com/ \
 :x: 4.5 Należy usunąć problemy typu Code Smell w kodzie w Sonarze (kotlin, go, js). Należy dodać badge z Sonara \
 :x: 5.0 Skonfigurować Github Actions z linterem oraz CodeQL
