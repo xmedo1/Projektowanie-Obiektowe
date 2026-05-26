@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"database/sql"
 	"log"
+	"regexp"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -22,6 +23,7 @@ func initDB() {
 	createTableSQL := `CREATE TABLE IF NOT EXISTS users (
 		"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
 		"username" TEXT UNIQUE NOT NULL,
+		"email" TEXT UNIQUE NOT NULL,
 		"password" TEXT NOT NULL
 	);`
 
@@ -29,7 +31,7 @@ func initDB() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	_, _ = db.Exec(`INSERT OR IGNORE INTO users (username, password) VALUES ('admin', 'password')`)
+	_, _ = db.Exec(`INSERT OR IGNORE INTO users (username, email, password) VALUES ('admin', 'admin@admin.pl', 'password')`)
 }
 
 type Product struct {
@@ -40,6 +42,7 @@ type Product struct {
 
 type Credentials struct {
 	Username string `json:"username"`
+	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
@@ -123,7 +126,13 @@ func main() {
 			return
 		}
 
-		_, err := db.Exec("INSERT INTO users (username, password) VALUES (?, ?)", creds.Username, creds.Password)
+		emailRegex := regexp.MustCompile(`^[^\s@]+@[^\s@]+\.[^\s@]{2,}$`)
+		if !emailRegex.MatchString(creds.Email) {
+			http.Error(w, "Niepoprawny format emaila", http.StatusBadRequest)
+			return
+		}
+
+		_, err := db.Exec("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", creds.Username, creds.Email, creds.Password)
 		
 		if err != nil {
 			http.Error(w, "Login zajety", http.StatusConflict)

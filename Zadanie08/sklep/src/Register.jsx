@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 const Register = () => {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
   const [isError, setIsError] = useState(false);
@@ -14,7 +15,15 @@ const Register = () => {
     setMsg(""); 
     setIsError(false);
 
-    const credentials = { username, password };
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    
+    if (!emailRegex.test(email)) {
+      setIsError(true);
+      setMsg("Niepoprawny format emaila");
+      return; 
+    }
+
+    const credentials = { username, email, password };
 
     fetch('http://localhost:8080/register', {
       method: 'POST',
@@ -51,6 +60,18 @@ const Register = () => {
             style={{ width: '100%' }}
           />
         </div>
+
+        <div style={{ marginBottom: '10px' }}>
+          <label>E-mail: </label>
+          <input 
+            type="text" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            style={{ width: '100%' }}
+          />
+        </div>
+
         <div style={{ marginBottom: '10px' }}>
           <label>Hasło: </label>
           <input 
