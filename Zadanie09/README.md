@@ -1,4 +1,4 @@
-**Zadanie 10** Chmura
+**Zadanie 09** Chmura
 
 :x: 3.0 Należy stworzyć odpowiednie instancje po stronie chmury na dockerze \
 :x: 3.5 Stworzyć odpowiedni pipeline w Github Actions do budowania aplikacji \
