@@ -85,7 +85,7 @@ func main() {
                     http.Error(w, "Bad request", http.StatusBadRequest)
                     return
                 }
-			fmt.Printf("Otrzymano platnosc.")
+			fmt.Println("Otrzymano platnosc.")
 			w.WriteHeader(http.StatusCreated)
 		}
 	})
