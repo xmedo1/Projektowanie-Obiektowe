@@ -1,12 +1,14 @@
-FROM golang:1.26-bookworm
+FROM golang:1.26-alpine
 
 WORKDIR /app
+
+RUN apk add --no-cache gcc musl-dev
 
 COPY . .
 
 RUN go mod download
 
-RUN go build -o server main.go
+RUN CGO_ENABLED=1 go build -o server .
 
 EXPOSE 8080
 
