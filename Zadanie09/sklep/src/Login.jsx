@@ -5,6 +5,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const backendUrl = import.meta.env.BACKEND_URL || 'http://localhost:8080';
   
   const navigate = useNavigate();
 
@@ -14,7 +15,7 @@ const Login = () => {
 
     const credentials = { username, password };
 
-    fetch('http://localhost:8080/login', {
+    fetch(`${backendUrl}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials)

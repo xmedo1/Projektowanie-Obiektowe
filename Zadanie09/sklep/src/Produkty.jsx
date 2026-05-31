@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 
 const Produkty = () => {
   const [items, setItems] = useState([]);
+  const backendUrl = import.meta.env.BACKEND_URL || 'http://localhost:8080';
 
   useEffect(() => {
-    fetch('http://localhost:8080/products')
+    fetch(`${backendUrl}/products`)
       .then(response => response.json())
       .then(data => setItems(data))
       .catch(error => console.error('Błąd:', error));

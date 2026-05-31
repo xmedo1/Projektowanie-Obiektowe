@@ -7,6 +7,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
   const [isError, setIsError] = useState(false);
+
+  const backendUrl = import.meta.env.BACKEND_URL || 'http://localhost:8080';
   
   const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ const Register = () => {
 
     const credentials = { username, email, password };
 
-    fetch('http://localhost:8080/register', {
+    fetch(`${backendUrl}/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials)

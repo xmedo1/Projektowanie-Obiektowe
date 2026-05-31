@@ -2,12 +2,13 @@ import { useState } from 'react';
 
 const Platnosci = () => {
   const [amount, setAmount] = useState("");
+  const backendUrl = import.meta.env.BACKEND_URL || 'http://localhost:8080';
 
   const sendPayment = (e) => {
 
     const dane = { amount: Number.parseFloat(amount), data: new Date() };
 
-    fetch('http://localhost:8080/payments', {
+    fetch(`${backendUrl}/payments`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(dane)
