@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 const Platnosci = () => {
   const [amount, setAmount] = useState("");
-  const backendUrl = import.meta.env.BACKEND_URL || 'http://localhost:8080';
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080';
 
   const sendPayment = (e) => {
 

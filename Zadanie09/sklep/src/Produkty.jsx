@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 const Produkty = () => {
   const [items, setItems] = useState([]);
-  const backendUrl = import.meta.env.BACKEND_URL || 'http://localhost:8080';
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080';
 
   useEffect(() => {
     fetch(`${backendUrl}/products`)

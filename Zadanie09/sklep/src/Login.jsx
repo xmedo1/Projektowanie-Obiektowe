@@ -5,7 +5,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const backendUrl = import.meta.env.BACKEND_URL || 'http://localhost:8080';
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080';
   
   const navigate = useNavigate();
 
